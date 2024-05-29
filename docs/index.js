@@ -185,21 +185,27 @@ async function dexstats() {
 	NICARAGUA = new ethers.Contract("0xbdf7f7da57658a7d02c51bec3fc427e4627aca6f", LPABI, provider);
 	LP_NICARAGUA = new ethers.Contract("0x8bc3878e628e11c81a027860130ee4cbf655041c", LPABI, provider);
 
+	ICELAND = new ethers.Contract("0x20cdd480698e618caf36943d9a3ccb1b6f22507c", LPABI, provider);
+	LP_ICELAND = new ethers.Contract("0x9851d5c9d3c56b4c42d116bf1ff3d83f36cecb84", LPABI, provider);
+
 
 
 	_cc = [
 		"USA",
 		"NICARAGUA",
+		"ICELAND"
 	];
 
 	__ts = await Promise.all([
 		USA.totalSupply(),
 		NICARAGUA.totalSupply(),
+		ICELAND.totalSupply(),
 	])
 
 	__gr = await Promise.all([
 		LP_USA.getReserves(),
 		LP_NICARAGUA.getReserves(),
+		LP_ICELAND.getReserves(),
 	])
 
 	_ts = [];
