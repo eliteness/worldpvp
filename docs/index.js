@@ -178,6 +178,7 @@ LPABI = ["function balanceOf(address) public view returns(uint)","function appro
 async function dexstats() {
 
 	WETH = "0x4200000000000000000000000000000000000006";
+	DEAD = "0x000000000000000000000000000000000000dead";
 
 	USA = new ethers.Contract("0x3bcb4d6523b98806dca200833723ffb32ba672c5", LPABI, provider);
 	LP_USA = new ethers.Contract("0x6955d8d23420fa696f405baa380ea4d8f56f988e", LPABI, provider);
@@ -195,6 +196,12 @@ async function dexstats() {
 		"NICARAGUA",
 		"ICELAND"
 	];
+
+	__dead = await Promise.all([
+		USA.balanceOf(DEAD),
+		NICARAGUA.balanceOf(DEAD),
+		ICELAND.balanceOf(DEAD),
+	])
 
 	__ts = await Promise.all([
 		USA.totalSupply(),
@@ -220,9 +227,9 @@ async function dexstats() {
 
 
 	for(i=0;i<_cc.length;i++) {
-		_ts[i] = Number(__ts[i]/1e18);
-		_eth[i] = Number(__gr[i][0]/1e18);
-		_ctk[i] = Number(__gr[i][1]/1e18);
+		_ts[i] = Number(__ts[i])/1e18 - Number(__dead[i])/1e18;
+		_eth[i] = Number(__gr[i][0])/1e18;
+		_ctk[i] = Number(__gr[i][1])/1e18;
 		if(_eth[i] > _ctk[i]) { let tmp = _eth[i]; _eth[i] = _ctk[i]; _ctk[i] = tmp}
 		_pri[i] = _eth[i]/_ctk[i];
 		_mc[i] = _ts[i] * _pri[i];
