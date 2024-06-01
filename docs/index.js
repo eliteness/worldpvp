@@ -275,19 +275,24 @@ async function dexstats() {
 	EGYPT = new ethers.Contract("0x3718d6f04f9bb8bfa7df66dcebbb4449d3e49fb9", LPABI, provider);
 	LP_EGYPT = new ethers.Contract("0x5ebdfdb197b873b809acf1024429f6274315959c", LPABI, provider);
 
+	GEORGIA = new ethers.Contract("0x342D00aA850789c03D8D47e9a3164B3A57e678b4", LPABI, provider);
+	LP_GEORGIA = new ethers.Contract("0xFCAD35bdAB9536579C0c067f8Df528cE2f2CcaB3", LPABI, provider);
+
 
 
 	_cc = [
 		"USA",
 		"NICARAGUA",
 		"ICELAND",
-		"EGYPT"
+		"EGYPT",
+		"GEORGIA"
 	];
 	_cf = [
 		"US",
 		"NI",
 		"IS",
-		"EG"
+		"EG",
+		"GE",
 	].map( i=> getCountryFlag(i) );
 
 
@@ -296,6 +301,7 @@ async function dexstats() {
 		NICARAGUA.balanceOf(DEAD),
 		ICELAND.balanceOf(DEAD),
 		EGYPT.balanceOf(DEAD),
+		GEORGIA.balanceOf(DEAD),
 	])
 
 	__ts = await Promise.all([
@@ -303,6 +309,7 @@ async function dexstats() {
 		NICARAGUA.totalSupply(),
 		ICELAND.totalSupply(),
 		EGYPT.totalSupply(),
+		GEORGIA.totalSupply(),
 	])
 
 	__gr = await Promise.all([
@@ -310,6 +317,7 @@ async function dexstats() {
 		LP_NICARAGUA.getReserves(),
 		LP_ICELAND.getReserves(),
 		LP_EGYPT.getReserves(),
+		LP_GEORGIA.getReserves(),
 	])
 
 	_ts = [];
