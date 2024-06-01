@@ -175,7 +175,7 @@ function notice(c) {
 
 LPABI = ["function balanceOf(address) public view returns(uint)","function approve(address,uint)","function allowance(address,address) public view returns(uint)","function totalSupply() public view returns(uint)","function getReserves() public view returns(uint,uint,uint)"];
 
-async function dexstats() {
+async function dexstats2() {
 
 	CD = await fetch("https://leaderboard.worldpvp.co/leaderboard")
 	CD = await CD.json()
@@ -255,8 +255,10 @@ async function dexstats() {
 			</div>
 		`;
 	}
+	return;
+}
 
-return;
+async function dexstats() {
 
 	WETH = "0x4200000000000000000000000000000000000006";
 	DEAD = "0x000000000000000000000000000000000000dead";
@@ -281,6 +283,13 @@ return;
 		"ICELAND",
 		"EGYPT"
 	];
+	_cf = [
+		"US",
+		"NI",
+		"IS",
+		"EG"
+	].map( i=> getCountryFlag(i) );
+
 
 	__dead = await Promise.all([
 		USA.balanceOf(DEAD),
@@ -347,7 +356,7 @@ return;
 
 		$("main-table").innerHTML += `
 			<div class="main-tables-rows">
-				<div>${_cc[i]}</div>
+				<div>${_cf[i]} ${_cc[i]}</div>
 				<div>${ _ts[i].toLocaleString(undefined,{maximumFractionDigits:0}) }</div>
 				<div>${ _mc[i].toLocaleString(undefined,{maximumFractionDigits:4}) } ETH </div>
 				<div>${ _eth[i].toLocaleString(undefined,{maximumFractionDigits:4}) } ETH </div>
