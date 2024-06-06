@@ -1,5 +1,7 @@
 # voting results
 # round 6
+Malaysia Nuked, Swaziland Lucky
+
 Voter | Voted
 ---- | ----
 USA	|	UK
