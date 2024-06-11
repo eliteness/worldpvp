@@ -368,6 +368,12 @@ async function dexstats() {
 	SWAZILAND = new ethers.Contract("0xbe30F2849E14962CD6406DF8445e711577345c60", LPABI, provider);
 	LP_SWAZILAND = new ethers.Contract("0x9373B97E617c405A3109C331AD7dA03F8f542598", LPABI, provider);
 
+	LUXEMBOURG = new ethers.Contract("0x0D58FcE4b1A991c800be71C96DA2B0F663E72859", LPABI, provider);
+	LP_LUXEMBOURG = new ethers.Contract("0xc4e2ef9b12Bb598cE92b11E0fcd9262Ce937a5cC", LPABI, provider);
+
+	LEBANON = new ethers.Contract("0x3735D70453C52869edCE2f9AE9A6527a54217370", LPABI, provider);
+	LP_LEBANON = new ethers.Contract("0x6d90844BA40381c87b39eb6f3B6a19DAd76249e1", LPABI, provider);
+
 
 
 	_cc = [
@@ -378,6 +384,8 @@ async function dexstats() {
 		"GEORGIA",
 		"LESOTHO",
 		"SWAZILAND",
+		"LUXEMBOURG",
+		"LEBANON",
 	];
 	_cf = [
 		"US",
@@ -387,6 +395,8 @@ async function dexstats() {
 		"GE",
 		"LS",
 		"SZ",
+		"LU",
+		"LB",
 	].map( i=> getCountryFlag(i) );
 
 
@@ -398,6 +408,8 @@ async function dexstats() {
 		GEORGIA.balanceOf(DEAD),
 		LESOTHO.balanceOf(DEAD),
 		SWAZILAND.balanceOf(DEAD),
+		LUXEMBOURG.balanceOf(DEAD),
+		LEBANON.balanceOf(DEAD),
 	])
 
 	__ts = await Promise.all([
@@ -408,6 +420,8 @@ async function dexstats() {
 		GEORGIA.totalSupply(),
 		LESOTHO.totalSupply(),
 		SWAZILAND.totalSupply(),
+		LUXEMBOURG.totalSupply(),
+		LEBANON.totalSupply(),
 	])
 
 	__gr = await Promise.all([
@@ -418,6 +432,8 @@ async function dexstats() {
 		LP_GEORGIA.getReserves(),
 		LP_LESOTHO.getReserves(),
 		LP_SWAZILAND.getReserves(),
+		LP_LUXEMBOURG.getReserves(),
+		LP_LEBANON.getReserves(),
 	])
 
 	_ts = [];
@@ -464,11 +480,12 @@ async function dexstats() {
 
 		$("main-table").innerHTML += `
 			<div class="main-tables-rows">
-				<div>${_cf[i]} ${_cc[i]}</div>
-				<div>${ _ts[i].toLocaleString(undefined,{maximumFractionDigits:0}) }</div>
-				<div>${ _mc[i].toLocaleString(undefined,{maximumFractionDigits:4}) } ETH </div>
-				<div>${ _eth[i].toLocaleString(undefined,{maximumFractionDigits:4}) } ETH </div>
-				<div>+${ _def[i].toLocaleString(undefined,{maximumFractionDigits:4}) } ETH </div>
+				<div class="mtr-cc">${_cf[i]} ${_cc[i]}</div>
+				<div class="mtr-cc">${ _ts[i].toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:0}) }</div>
+				<div class="mtr-cc">${ _mc[i].toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:4}) } ETH </div>
+				<div class="mtr-cc">${ (_ctk[i]/_ts[i]*100).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) }% ${_cf[i]} </div>
+				<div class="mtr-cc">${ _eth[i].toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:4}) } ETH </div>
+				<div class="mtr-cc">+${ _def[i].toLocaleString(undefined,{minimumFractionDigits:4,maximumFractionDigits:4}) } ETH </div>
 			</div>
 		`;
 	}
@@ -570,3 +587,43 @@ async function redeem() {
 	gubs();
 }
 */
+
+function sortit(n,_maintable,_trName,_tdName) {
+  var t, r, z, i, x, y, v, b, c = 0;
+  t = document.getElementById(_maintable);
+  z = true;
+  b = "a";
+  while (z) {
+    z = false;
+    r = t.getElementsByClassName(_trName);
+    for (i = 0; i < (r.length - 1); i++) {
+      v = false;
+      x = (r[i].getElementsByClassName(_tdName)[n].textContent).replaceAll(/,| |\.|\$|%/g,'').replaceAll('ETH','');
+      if(isFinite(x)){x=Number(x)}else{x=x.toLowerCase()}
+      y = (r[i + 1].getElementsByClassName(_tdName)[n].textContent).replaceAll(/,| |\.|\$|%/g,'').replaceAll('ETH','');
+      if(isFinite(y)){y=Number(y)}else{y=y.toLowerCase()}
+      if (b == "a") {
+        if ((x) > (y)) {
+          v= true;
+          break;
+        }
+      } else if (b == "d") {
+        if ((x) < (y)) {
+          v = true;
+          break;
+        }
+      }
+    }
+    if (v) {
+      r[i].parentNode.insertBefore(r[i + 1], r[i]);
+      z = true;
+      c ++;
+    } else {
+      if (c == 0 && b == "a") {
+        b = "d";
+        z = true;
+      }
+    }
+  }
+    var t, r, z, i, x, y, v, b, c = 0;
+}
