@@ -374,10 +374,13 @@ async function dexstats() {
 	LEBANON = new ethers.Contract("0x3735D70453C52869edCE2f9AE9A6527a54217370", LPABI, provider);
 	LP_LEBANON = new ethers.Contract("0x6d90844BA40381c87b39eb6f3B6a19DAd76249e1", LPABI, provider);
 
+	ERITREA = new ethers.Contract("0x043Af3E316826E671E4e643D3769213Fe29a0B7A", LPABI, provider);
+	LP_ERITREA = new ethers.Contract("0x50168AB648559E5D9d6C3B77Cbb14DdA4943B342", LPABI, provider);
+
 
 
 	_cc = [
-		"USA",
+		//"USA",
 		"NICARAGUA",
 		"ICELAND",
 		"EGYPT",
@@ -386,9 +389,10 @@ async function dexstats() {
 		"SWAZILAND",
 		"LUXEMBOURG",
 		"LEBANON",
+		"ERITREA",
 	];
 	_cf = [
-		"US",
+		//"US",
 		"NI",
 		"IS",
 		"EG",
@@ -397,11 +401,12 @@ async function dexstats() {
 		"SZ",
 		"LU",
 		"LB",
+		"ER",
 	].map( i=> getCountryFlag(i) );
 
 
 	__dead = await Promise.all([
-		USA.balanceOf(DEAD),
+		//USA.balanceOf(DEAD),
 		NICARAGUA.balanceOf(DEAD),
 		ICELAND.balanceOf(DEAD),
 		EGYPT.balanceOf(DEAD),
@@ -410,10 +415,11 @@ async function dexstats() {
 		SWAZILAND.balanceOf(DEAD),
 		LUXEMBOURG.balanceOf(DEAD),
 		LEBANON.balanceOf(DEAD),
+		ERITREA.balanceOf(DEAD),
 	])
 
 	__ts = await Promise.all([
-		USA.totalSupply(),
+		//USA.totalSupply(),
 		NICARAGUA.totalSupply(),
 		ICELAND.totalSupply(),
 		EGYPT.totalSupply(),
@@ -422,10 +428,11 @@ async function dexstats() {
 		SWAZILAND.totalSupply(),
 		LUXEMBOURG.totalSupply(),
 		LEBANON.totalSupply(),
+		ERITREA.totalSupply(),
 	])
 
 	__gr = await Promise.all([
-		LP_USA.getReserves(),
+		//LP_USA.getReserves(),
 		LP_NICARAGUA.getReserves(),
 		LP_ICELAND.getReserves(),
 		LP_EGYPT.getReserves(),
@@ -434,6 +441,7 @@ async function dexstats() {
 		LP_SWAZILAND.getReserves(),
 		LP_LUXEMBOURG.getReserves(),
 		LP_LEBANON.getReserves(),
+		LP_ERITREA.getReserves(),
 	])
 
 	_ts = [];
